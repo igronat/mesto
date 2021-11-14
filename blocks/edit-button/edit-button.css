@@ -1,0 +1,18 @@
+.edit-button {
+    min-width: 18px;
+    min-height: 18px;
+    background: #000000;
+    border: 1px solid #FFFFFF;
+    box-sizing: border-box;
+}
+
+.edit-button:hover {
+    opacity: 0.6;
+}
+
+@media screen and (min-width: 880px) {
+    edit-button {
+        min-width: 24px;
+        min-height: 24px;
+    }
+}
