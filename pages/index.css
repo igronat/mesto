@@ -15,6 +15,7 @@
 @import url(..//blocks/profile/__add-button/profile__add-button.css);
 @import url(..//blocks/profile/__title-button/profile__title-button.css);
 @import url(..//blocks/add-button/add-button.css);
+@import url(..//blocks/add-button/__text/add-button__text.css);
 @import url(..//blocks/elements/elements.css);
 @import url(..//blocks/element/element.css);
 @import url(..//blocks/element/__heart/element__heart.css);
