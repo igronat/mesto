@@ -16,17 +16,15 @@ popupClose.addEventListener("click", close);
 let formElement = popup.querySelector(".popup__content")
 let nameInput = popup.querySelector(".popup__text_name");
 let jobInput = popup.querySelector(".popup__text_job");
-const popupButton = popup.querySelector(".popup__button");
+
 
 function formSubmitHandler(evt) {
     evt.preventDefault();
-    console.log(nameInput.value);
-    console.log(jobInput.value);
     let profileTitle = document.querySelector(".profile__title");
     let profileText = document.querySelector(".profile__text");
     profileTitle.textContent = nameInput.value;
     profileText.textContent = jobInput.value;
+    close();
 }
 
 formElement.addEventListener('submit', formSubmitHandler);
-popupButton.addEventListener("click", close);
