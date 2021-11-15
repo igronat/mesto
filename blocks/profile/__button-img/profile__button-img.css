@@ -1,10 +1,10 @@
-.add-button__text {
+.profile__button-img {
     width: 16px;
     height: 16px;
 }
 
 @media screen and (min-width: 880px) {
-    .add-button__text {
+    .profile__button-img {
         width: 22px;
         height: 22px;
     }
