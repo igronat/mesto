@@ -1,9 +1,15 @@
 .popup__close {
-    align-self: end;
-    margin-top: -50px;
-    margin-right: -20px;
     width: 20px;
     height: 20px;
+    cursor: pointer;
+    transition: opacity 1s ease;
+    background-image: url("../../../images/popup-close.svg");
+    background-color: transparent;
+    border: none;
+    background-size: cover;
+    background-position: center;
+    align-self: flex-end;
+    margin-bottom: 16px;
 }
 
 .popup__close:hover {
@@ -12,9 +18,7 @@
 
 @media screen and (min-width: 880px) {
     .popup__close {
-        align-self: end;
-        margin-top: -70px;
-        margin-right: -70px;
+        margin-right: -35px;
         width: 32px;
         height: 32px;
     }

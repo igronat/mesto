@@ -9,6 +9,8 @@
     width: 100%;
     margin: 0;
     padding: 0;
+    cursor: pointer;
+    transition: opacity 1s ease;
 }
 
 .profile__add-button:hover {
