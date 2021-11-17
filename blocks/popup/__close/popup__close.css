@@ -9,7 +9,9 @@
     background-size: cover;
     background-position: center;
     align-self: flex-end;
-    margin-bottom: 16px;
+    position: absolute;
+    top: -40px;
+    right: 4px;
 }
 
 .popup__close:hover {
@@ -18,8 +20,9 @@
 
 @media screen and (min-width: 880px) {
     .popup__close {
-        margin-right: -35px;
+        right: -35px;
         width: 32px;
         height: 32px;
+        top: -35px;
     }
 }
