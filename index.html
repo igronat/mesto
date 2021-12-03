@@ -34,7 +34,9 @@
                 </button>
             </section>
 
+
             <section class="elements">
+                <!--
                 <article class="element">
                     <img alt="фото Карачаевска" src="./images/karachaevsc.jpg" class="element__image">
                     <div class="element__description">
@@ -76,7 +78,7 @@
                         <h2 class="element__title">Шантарские острова</h2>
                         <button type="button" class="element__heart"></button>
                     </div>
-                </article>
+                </article>-->
             </section>
 
         </main>
@@ -84,7 +86,18 @@
         <footer class="footer">
             <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
         </footer>
+
     </div>
+
+    <template class="template">
+        <article class="element">
+            <img alt="фото" class="element__image">
+            <div class="element__description">
+                <h2 class="element__title"></h2>
+                <button type="button" class="element__heart"></button>
+            </div>
+        </article>
+    </template>
 
     <div class="popup" id="profile">
         <div class="popup__content">
@@ -102,8 +115,8 @@
             <button class="popup__close" type="button"></button>
             <form name="UpdateMesto" class="popup__form">
                 <h2 class="popup__title">Новое место</h2>
-                <input type="text" class="popup__text popup__text_type_mesto" name="mesto" placeholder="Название" required value="Жак-Ив Кусто">
-                <input type="text" class="popup__text popup__text_type_link" name="link" placeholder="Ссылка на картинку" required value="Исследователь океана">
+                <input type="text" class="popup__text popup__text_type_mesto" name="mesto" placeholder="Название" required value="Название">
+                <input type="text" class="popup__text popup__text_type_link" name="link" placeholder="Ссылка на картинку" required value="Ссылка на картинку">
                 <button type="submit" class="popup__button" id="button-create">Создать</button>
             </form>
         </div>
