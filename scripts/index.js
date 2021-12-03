@@ -4,8 +4,7 @@ const popup = document.getElementById('profile');
 const popupMesto = document.getElementById('mesto');
 const popupClose = popup.querySelector('.popup__close');
 const popupCloseMesto = popupMesto.querySelector('.popup__close');
-const buttonSave = popup.querySelector('button-save');
-const buttonCreate = popupMesto.querySelector('button-create');
+const buttonCreate = document.getElementById('button-create');
 let profileTitle = document.querySelector('.profile__title');
 let profileText = document.querySelector('.profile__text');
 let formElement = popup.querySelector('.popup__form');
@@ -40,6 +39,9 @@ const initialCards = [{
 
 const elements = document.querySelector('.elements');
 const templateEl = document.querySelector('.template');
+let mesto = document.querySelector('.popup__text_type_mesto');
+let link = document.querySelector('.popup__text_type_link');
+
 
 
 function open(evt) {
@@ -57,6 +59,20 @@ function formSubmitHandler(evt) { //функция внесения измене
     profileTitle.textContent = nameInput.value;
     profileText.textContent = jobInput.value;
     close(popup);
+}
+
+function cardSubmitHandler() { //функция добавления карточки
+    const inputMesto = mesto.value;
+    const inputImage = link.value;
+    const cardItem = getItem({
+        name: inputMesto,
+        link: inputImage
+    });
+    elements.prepend(cardItem);
+    mesto.value = '';
+    link.value = '';
+    close(popupMesto);
+
 }
 
 function render() {
@@ -90,8 +106,6 @@ function getItem(item) {
 
 }
 
-
-
 render();
 
 editButton.addEventListener('click', () => {
@@ -103,3 +117,4 @@ addButton.addEventListener('click', () => open(popupMesto));
 popupClose.addEventListener('click', () => close(popup));
 popupCloseMesto.addEventListener('click', () => close(popupMesto));
 formElement.addEventListener('submit', formSubmitHandler);
+buttonCreate.addEventListener('click', cardSubmitHandler);
