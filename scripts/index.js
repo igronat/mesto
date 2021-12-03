@@ -41,6 +41,7 @@ const initialCards = [{
 const elements = document.querySelector('.elements');
 const templateEl = document.querySelector('.template');
 
+
 function open(evt) {
     evt.classList.add('popup_opened'); //функция открытия окна popup 
 
@@ -73,8 +74,18 @@ function getItem(item) {
     titleEl.textContent = item.name;
     imageEl.src = item.link;
 
+    const buttonTrash = newItem.querySelector('.element__trash');
+    buttonTrash.addEventListener('click', (event) => {
+        const target = event.target;
+        const card = document.querySelector('.element');
+        card.remove();
+
+    })
+
     return newItem;
 }
+
+
 
 render();
 
