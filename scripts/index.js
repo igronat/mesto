@@ -68,21 +68,26 @@ function render() {
 }
 
 function getItem(item) {
-    const newItem = templateEl.content.cloneNode(true);
+    const newItem = templateEl.content.cloneNode(true); //копируем template
     const titleEl = newItem.querySelector('.element__title');
     const imageEl = newItem.querySelector('.element__image');
-    titleEl.textContent = item.name;
-    imageEl.src = item.link;
+    titleEl.textContent = item.name; //вставляем данные названия
+    imageEl.src = item.link; //вставляем картинку
 
-    const buttonTrash = newItem.querySelector('.element__trash');
+    const buttonTrash = newItem.querySelector('.element__trash'); //реализуем удаление картинки
     buttonTrash.addEventListener('click', (event) => {
         const target = event.target;
         const card = document.querySelector('.element');
         card.remove();
 
-    })
+    });
+
+    const buttonHeart = newItem.querySelector('.element__heart'); //ставим лайк
+    buttonHeart.addEventListener('click', () =>
+        buttonHeart.classList.add('element__heart_active'));
 
     return newItem;
+
 }
 
 
