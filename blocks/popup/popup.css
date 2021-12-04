@@ -9,3 +9,15 @@
     display: none;
     background-color: rgba(0, 0, 0, 0.5);
 }
+
+.popup>.popup__content {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s linear 0.5s, opacity 0.5s linear;
+}
+
+.popup:hover>.popup__content {
+    visibility: visible;
+    opacity: 1;
+    transition-delay: 0s;
+}
