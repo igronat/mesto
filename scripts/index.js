@@ -105,8 +105,8 @@ function getItem(item) {
 
     imageEl.addEventListener('click', () => { //открываем попап для увеличения картинки
         open(popupImg);
-        const imageElBigSize = popupImg.querySelector('.element__image-zoom');
-        const titleElBigSize = popupImg.querySelector('.element__bigtitle');
+        const imageElBigSize = popupImg.querySelector('.popup__foto');
+        const titleElBigSize = popupImg.querySelector('.popup__fototext');
         imageElBigSize.src = imageEl.src;
         titleElBigSize.textContent = titleEl.textContent;
     });
