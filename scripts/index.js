@@ -105,8 +105,8 @@ function getItem(item) {
 
     imageEl.addEventListener('click', () => { //открываем попап для увеличения картинки
         open(popupImg);
-        const imageElBigSize = popupImg.querySelector('.element__image_bigsize');
-        const titleElBigSize = popupImg.querySelector('.element__title_bigsize');
+        const imageElBigSize = popupImg.querySelector('.element__bigimage');
+        const titleElBigSize = popupImg.querySelector('.element__bigtitle');
         imageElBigSize.src = imageEl.src;
         titleElBigSize.textContent = titleEl.textContent;
 
