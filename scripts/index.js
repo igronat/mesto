@@ -44,8 +44,6 @@ let mesto = document.querySelector('.popup__text_type_mesto');
 let link = document.querySelector('.popup__text_type_link');
 const popupImg = document.getElementById('img');
 const popupCloseImg = popupImg.querySelector('.popup__close');
-console.log(popupImg);
-
 
 function open(evt) {
     evt.classList.add('popup_opened'); //функция открытия окна popup 
@@ -111,7 +109,6 @@ function getItem(item) {
         const titleElBigSize = popupImg.querySelector('.element__title_bigsize');
         imageElBigSize.src = imageEl.src;
         titleElBigSize.textContent = titleEl.textContent;
-        console.log(imageElBigSize);
 
     });
 
