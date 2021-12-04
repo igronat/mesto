@@ -1,8 +1,10 @@
 .element__image_bigsize {
-    min-width: 240px;
-    min-height: 299px;
-    border: solid green;
+    max-width: 75vw;
+    max-height: 75vh;
     margin-bottom: 10px;
+    overflow: hidden;
+    object-fit: cover;
+    position: relative;
 }
 
 @media screen and (min-width: 880px) {

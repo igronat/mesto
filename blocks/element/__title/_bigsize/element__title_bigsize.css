@@ -5,7 +5,7 @@
     align-self: flex-start;
     color: #FFFFFF;
     padding: 0;
-    text-overflow: ellipsis;
+    margin: 0px;
     white-space: nowrap;
     overflow: hidden;
 }
