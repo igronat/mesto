@@ -50,6 +50,9 @@ const mesto = document.querySelector('.popup__text_type_mesto');
 const link = document.querySelector('.popup__text_type_link');
 const popupImg = document.getElementById('img');
 const popupCloseImg = popupImg.querySelector('.popup__close');
+const imageElBigSize = popupImg.querySelector('.popup__foto');
+const titleElBigSize = popupImg.querySelector('.popup__fototext');
+const altElBigSize = popupImg.querySelector('[alt="фото"]');
 
 function openPopup(evt) {
     evt.classList.add('popup_opened'); //функция открытия окна popup 
@@ -109,13 +112,11 @@ function getItem(item) { // создаем карточку
 
     const buttonHeart = newItem.querySelector('.element__heart'); //ставим лайк
     buttonHeart.addEventListener('click', () =>
-        buttonHeart.classList.add('element__heart_active'));
+        buttonHeart.classList.toggle('element__heart_active'));
 
     imageEl.addEventListener('click', () => { //открываем попап для увеличения картинки
         openPopup(popupImg);
-        const imageElBigSize = popupImg.querySelector('.popup__foto');
-        const titleElBigSize = popupImg.querySelector('.popup__fototext');
-        const altElBigSize = popupImg.querySelector('[alt="фото"]');
+
         imageElBigSize.src = imageEl.src;
         titleElBigSize.textContent = titleEl.textContent;
         altElBigSize.alt = altEl.alt;
