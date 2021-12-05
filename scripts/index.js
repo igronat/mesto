@@ -106,7 +106,7 @@ function getItem(item) { // создаем карточку
     const buttonTrash = newItem.querySelector('.element__trash'); //реализуем удаление картинки
     buttonTrash.addEventListener('click', (event) => {
         const target = event.target;
-        const card = document.querySelector('.element');
+        const card = buttonTrash.closest('.element');
         card.remove();
     });
 
@@ -116,12 +116,10 @@ function getItem(item) { // создаем карточку
 
     imageEl.addEventListener('click', () => { //открываем попап для увеличения картинки
         openPopup(popupImg);
-
         imageElBigSize.src = imageEl.src;
         titleElBigSize.textContent = titleEl.textContent;
         altElBigSize.alt = altEl.alt;
-        console.log(altElBigSize);
-        console.log(altEl);
+
     });
 
     return newItem;
