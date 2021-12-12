@@ -1,17 +1,17 @@
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
-const popup = document.getElementById('profile');
+const popupProfile = document.getElementById('profile');
 const popupMesto = document.getElementById('mesto');
-const popupClose = popup.querySelector('.popup__close');
+const popupClose = popupProfile.querySelector('.popup__close');
 const popupCloseMesto = popupMesto.querySelector('.popup__close');
 const buttonCreate = document.getElementById('button-create');
 const profileTitle = document.querySelector('.profile__title');
 const profileText = document.querySelector('.profile__text');
-const formElement = popup.querySelector('.popup__form');
+const formElement = popupProfile.querySelector('.popup__form');
 const formMesto = document.querySelector('.popup__mesto');
-const nameInput = popup.querySelector('.popup__text_type_name');
-const jobInput = popup.querySelector('.popup__text_type_job');
-const button = document.querySelector('.button')
+const nameInput = popupProfile.querySelector('.popup__text_type_name');
+const jobInput = popupProfile.querySelector('.popup__text_type_job');
+const button = document.querySelector('.button');
 
 const initialCards = [{
         name: 'Архыз',
@@ -54,6 +54,10 @@ const popupCloseImg = popupImg.querySelector('.popup__close');
 const imageElBigSize = popupImg.querySelector('.popup__foto');
 const titleElBigSize = popupImg.querySelector('.popup__fototext');
 const altElBigSize = popupImg.querySelector('[alt="фото"]');
+const overlayProfile = document.querySelector('.overlay__profile');
+const overlayMesto = document.querySelector('.overlay__mesto');
+const overlayImg = document.querySelector('.overlay__img');
+
 
 function openPopup(evt) {
     evt.classList.add('popup_opened'); //функция открытия окна popup 
@@ -69,7 +73,7 @@ function handleFormSubmit(evt) { //функция внесения измене�
     evt.preventDefault();
     profileTitle.textContent = nameInput.value;
     profileText.textContent = jobInput.value;
-    closePopup(popup);
+    closePopup(popupProfile);
 }
 
 function handleCardSubmit(evt) { //функция добавления карточки
@@ -134,11 +138,14 @@ render();
 editButton.addEventListener('click', () => {
     nameInput.value = profileTitle.textContent; // выводим в инпут данные из профиля
     jobInput.value = profileText.textContent;
-    openPopup(popup);
+    openPopup(popupProfile);
 });
 addButton.addEventListener('click', () => openPopup(popupMesto));
-popupClose.addEventListener('click', () => closePopup(popup));
+popupClose.addEventListener('click', () => closePopup(popupProfile));
 popupCloseMesto.addEventListener('click', () => closePopup(popupMesto));
 popupCloseImg.addEventListener('click', () => closePopup(popupImg));
 formElement.addEventListener('submit', handleFormSubmit);
 formMesto.addEventListener('submit', handleCardSubmit);
+overlayMesto.addEventListener('click', () => closePopup(popupMesto));
+overlayProfile.addEventListener('click', () => closePopup(popupProfile));
+overlayImg.addEventListener('click', () => closePopup(popupImg));
