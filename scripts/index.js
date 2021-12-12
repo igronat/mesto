@@ -11,6 +11,7 @@ const formElement = popup.querySelector('.popup__form');
 const formMesto = document.querySelector('.popup__mesto');
 const nameInput = popup.querySelector('.popup__text_type_name');
 const jobInput = popup.querySelector('.popup__text_type_job');
+const button = document.querySelector('.button')
 
 const initialCards = [{
         name: 'Архыз',
@@ -127,6 +128,76 @@ function getItem(item) { // создаем карточку
 }
 
 render();
+
+const enableValidation = ({ formSelector, ...rest }) => {
+    const forms = document.querySelectorAll(formSelector);
+    forms.forEach((form) => {
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+        })
+        setInputListeners(form, rest);
+    })
+
+};
+
+const setInputListeners = (form, { inputSelector, submitButtonSelector, inactiveButtonClass, ...rest }) => {
+    const inputs = form.querySelectorAll(inputSelector);
+    const submitButton = form.querySelector(submitButtonSelector);
+    inputs.forEach((input) => {
+        input.addEventListener('input', () => {
+            checkIfInputValid(form, input, rest);
+            toggleButtonError(inputs, submitButton, inactiveButtonClass)
+        })
+    })
+};
+
+const checkIfInputValid = (form, input, { inputErrorClass, errorClass }) => {
+    if (!input.validity.valid) {
+        showError(form, input, input.validationMessage, errorClass, inputErrorClass, )
+    } else {
+        hideError(form, input, inputErrorClass, errorClass)
+    }
+};
+
+const showError = (form, input, errorMessageText, errorClass, inputErrorClass) => {
+    const errorText = form.querySelector(`#${input.id}-error`);
+    errorText.textContent = errorMessageText;
+    errorText.classList.add(errorClass);
+    input.classList.add(inputErrorClass);
+};
+
+const hideError = (form, input, errorClass, inputErrorClass) => {
+    const errorText = form.querySelector(`#${input.id}-error`);
+    errorText.textContent = '';
+    errorText.classList.remove(errorClass);
+    input.classList.remove(inputErrorClass);
+};
+
+const hasInvalidInput = (inputs) => {
+    return Array.from(inputs).some((el) => !el.validity.valid);
+
+};
+
+const toggleButtonError = (inputs, button, inactiveButtonClass) => {
+    if (hasInvalidInput(inputs)) {
+        button.classList.add(inactiveButtonClass);
+        button.disabled = true;
+
+    } else {
+        button.classList.remove(inactiveButtonClass);
+        button.disabled = false;
+
+    }
+}
+
+enableValidation({
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_disabled',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__error_visible'
+});
 
 editButton.addEventListener('click', () => {
     nameInput.value = profileTitle.textContent; // выводим в инпут данные из профиля
