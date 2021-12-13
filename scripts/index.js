@@ -61,18 +61,17 @@ const overlayImg = document.querySelector('.overlay__img');
 
 function openPopup(evt) {
     evt.classList.add('popup_opened'); //функция открытия окна popup 
-
+    document.addEventListener('keydown', (a) => { //dвешаем слушатель на эскейп
+        const key = a.key;
+        if (key === 'Escape') {
+            closePopup(evt)
+        }
+    })
 }
 
 function closePopup(evt) {
     evt.classList.remove('popup_opened'); //функция закрытия окна popup 
 
-}
-
-function closePopupEsc(evt) {
-    if (evt.key === 'esc') {
-        closePopup(evt);
-    }
 }
 
 function handleFormSubmit(evt) { //функция внесения изменений в профиль
@@ -139,14 +138,16 @@ function getItem(item) { // создаем карточку
 
 render();
 
-
-
 editButton.addEventListener('click', () => {
     nameInput.value = profileTitle.textContent; // выводим в инпут данные из профиля
     jobInput.value = profileText.textContent;
     openPopup(popupProfile);
 });
-addButton.addEventListener('click', () => openPopup(popupMesto));
+addButton.addEventListener('click', () => {
+    mesto.value = '';
+    link.value = '';
+    openPopup(popupMesto)
+});
 popupClose.addEventListener('click', () => closePopup(popupProfile));
 popupCloseMesto.addEventListener('click', () => closePopup(popupMesto));
 popupCloseImg.addEventListener('click', () => closePopup(popupImg));
@@ -155,4 +156,3 @@ formMesto.addEventListener('submit', handleCardSubmit);
 overlayMesto.addEventListener('click', () => closePopup(popupMesto));
 overlayProfile.addEventListener('click', () => closePopup(popupProfile));
 overlayImg.addEventListener('click', () => closePopup(popupImg));
-overlayMesto.addEventListener('keydown', () => closePopupEsc(popupMesto));

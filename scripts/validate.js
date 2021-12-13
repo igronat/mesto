@@ -24,7 +24,7 @@ const checkIfInputValid = (form, input, { inputErrorClass, errorClass }) => { //
     if (!input.validity.valid) {
         showError(form, input, input.validationMessage, errorClass, inputErrorClass, )
     } else {
-        hideError(form, input, inputErrorClass, errorClass)
+        hideError(form, input, errorClass, inputErrorClass)
     }
 };
 
@@ -33,6 +33,7 @@ const showError = (form, input, errorMessageText, errorClass, inputErrorClass) =
     errorText.textContent = errorMessageText;
     errorText.classList.add(errorClass);
     input.classList.add(inputErrorClass);
+
 };
 
 const hideError = (form, input, errorClass, inputErrorClass) => { // убираем текст ошибки
@@ -40,7 +41,7 @@ const hideError = (form, input, errorClass, inputErrorClass) => { // убира�
     errorText.textContent = '';
     errorText.classList.remove(errorClass);
     input.classList.remove(inputErrorClass);
-    console.log(input)
+
 };
 
 const hasInvalidInput = (inputs) => { //  ищем невалидные импуты
