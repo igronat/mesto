@@ -40,6 +40,7 @@ const hideError = (form, input, errorClass, inputErrorClass) => { // убира�
     errorText.textContent = '';
     errorText.classList.remove(errorClass);
     input.classList.remove(inputErrorClass);
+    console.log(input)
 };
 
 const hasInvalidInput = (inputs) => { //  ищем невалидные импуты

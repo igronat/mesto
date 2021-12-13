@@ -69,6 +69,12 @@ function closePopup(evt) {
 
 }
 
+function closePopupEsc(evt) {
+    if (evt.key === 'esc') {
+        closePopup(evt);
+    }
+}
+
 function handleFormSubmit(evt) { //функция внесения изменений в профиль
     evt.preventDefault();
     profileTitle.textContent = nameInput.value;
@@ -149,3 +155,4 @@ formMesto.addEventListener('submit', handleCardSubmit);
 overlayMesto.addEventListener('click', () => closePopup(popupMesto));
 overlayProfile.addEventListener('click', () => closePopup(popupProfile));
 overlayImg.addEventListener('click', () => closePopup(popupImg));
+overlayMesto.addEventListener('keydown', () => closePopupEsc(popupMesto));
