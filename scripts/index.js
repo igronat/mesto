@@ -54,9 +54,9 @@ const popupCloseImg = popupImg.querySelector('.popup__close');
 const imageElBigSize = popupImg.querySelector('.popup__foto');
 const titleElBigSize = popupImg.querySelector('.popup__fototext');
 const altElBigSize = popupImg.querySelector('[alt="фото"]');
-const overlayProfile = document.querySelector('.overlay__profile');
-const overlayMesto = document.querySelector('.overlay__mesto');
-const overlayImg = document.querySelector('.overlay__img');
+const overlayProfile = document.getElementById('overlay__profile');
+const overlayMesto = document.getElementById('overlay__mesto');
+const overlayImg = document.getElementById('overlay__img');
 
 
 function openPopup(evt) {
