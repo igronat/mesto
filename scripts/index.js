@@ -61,17 +61,21 @@ const overlayImg = document.getElementById('overlay__img');
 
 function openPopup(evt) {
     evt.classList.add('popup_opened'); //функция открытия окна popup 
-    document.addEventListener('keydown', (a) => { //вешаем слушатель на эскейп
-        const key = a.key;
-        if (key === 'Escape') {
-            closePopup(evt)
-        }
-    })
+    document.addEventListener('keydown', closePopupByEscape);
+
 }
 
 function closePopup(evt) {
-    evt.classList.remove('popup_opened'); //функция закрытия окна popup 
+    evt.classList.remove('popup_opened'); //функция закрытия окна popup
+    document.removeEventListener('keydown', closePopupByEscape);
 
+}
+
+function closePopupByEscape(evt) { //функция закрытия попапа через esc
+    if (evt.key === 'Escape') {
+        const openedPopup = document.querySelector('.popup_opened');
+        closePopup(openedPopup)
+    }
 }
 
 function handleFormSubmit(evt) { //функция внесения изменений в профиль
@@ -146,7 +150,8 @@ editButton.addEventListener('click', () => {
 addButton.addEventListener('click', () => {
     mesto.value = '';
     link.value = '';
-    openPopup(popupMesto)
+    buttonCreate.classList.add('popup__button_disabled')
+    openPopup(popupMesto);
 });
 popupClose.addEventListener('click', () => closePopup(popupProfile));
 popupCloseMesto.addEventListener('click', () => closePopup(popupMesto));
