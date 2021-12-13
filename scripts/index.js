@@ -61,7 +61,7 @@ const overlayImg = document.querySelector('.overlay__img');
 
 function openPopup(evt) {
     evt.classList.add('popup_opened'); //функция открытия окна popup 
-    document.addEventListener('keydown', (a) => { //dвешаем слушатель на эскейп
+    document.addEventListener('keydown', (a) => { //вешаем слушатель на эскейп
         const key = a.key;
         if (key === 'Escape') {
             closePopup(evt)

@@ -50,7 +50,6 @@ const hasInvalidInput = (inputs) => { //  ищем невалидные импу
 };
 
 const toggleButtonError = (inputs, button, inactiveButtonClass) => { // делаем кнопку неактивной в случае невалидности формы
-    console.log(hasInvalidInput(inputs))
     if (hasInvalidInput(inputs)) {
         button.classList.add(inactiveButtonClass);
         button.disabled = true;
