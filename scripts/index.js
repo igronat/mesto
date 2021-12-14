@@ -150,7 +150,8 @@ editButton.addEventListener('click', () => {
 addButton.addEventListener('click', () => {
     mesto.value = '';
     link.value = '';
-    buttonCreate.classList.add('popup__button_disabled')
+    buttonCreate.classList.add('popup__button_disabled');
+    buttonCreate.disabled = true;
     openPopup(popupMesto);
 });
 popupClose.addEventListener('click', () => closePopup(popupProfile));
