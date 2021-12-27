@@ -31,7 +31,6 @@ const elements = document.querySelector('.elements');
 function render() {
     const html = initialCards.map((item) => {
         const card = new Card('.template', item.name, item.link, item.alt);
-        console.log(card);
 
         return card.getView()
     });
@@ -39,7 +38,6 @@ function render() {
     elements.append(...html);
 
 }
-
 
 render();
 
