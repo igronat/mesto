@@ -16,9 +16,9 @@ export default class Card {
 
     getView() {
         this._element = this._getItem();
-        this._elemen.querySelector('.element__title').textContent = this._name; //вставляем данные названия
-        this._elemen.querySelector('.element__image').src = this._link; //вставляем картинку
-        this._elemen.querySelector('[alt="фото"]').alt = this._alt; //вставляем описание картинки
+        this._element.querySelector('.element__title').textContent = this._name; //вставляем данные названия
+        this._element.querySelector('.element__image').src = this._link; //вставляем картинку
+        this._element.querySelector('[alt="фото"]').alt = this._alt; //вставляем описание картинки
         return this._element
     }
 

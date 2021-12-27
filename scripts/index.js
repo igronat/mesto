@@ -30,9 +30,10 @@ const elements = document.querySelector('.elements');
 
 function render() {
     const html = initialCards.map((item) => {
-        const card = new Card('.element', item.name, item.link, item.alt);
-        console.log(card)
+        const card = new Card('.template', item.name, item.link, item.alt);
+        console.log(card);
 
+        return card.getView()
     });
 
     elements.append(...html);
