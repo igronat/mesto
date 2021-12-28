@@ -11,16 +11,22 @@ export default class Card {
             .content
             .querySelector('.element')
             .cloneNode(true);
-
     }
 
     _deleteCardButton = () => {
         this._element.remove();
-
     }
 
     _likeButton = () => {
         this._element.querySelector('.element__heart').classList.toggle('element__heart_active')
+    }
+
+    _openBigSize = () => {
+        const popupImg = document.getElementById('img');
+        popupImg.classList.add('popup_opened');
+        popupImg.querySelector('.popup__fototext').textContent = this._name; //вставляем данные названия
+        popupImg.querySelector('.popup__foto').src = this._link; //вставляем картинку
+        popupImg.querySelector('[alt="фото"]').alt = this._alt; //вставляем описание картинки
     }
 
     getView() {
@@ -34,6 +40,9 @@ export default class Card {
 
         //ставим лайк
         this._element.querySelector('.element__heart').addEventListener('click', this._likeButton);
+
+        // открываем попап для увеличения картинки
+        this._element.addEventListener('click', this._openBigSize);
 
         return this._element
     }

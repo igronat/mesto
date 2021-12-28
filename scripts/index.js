@@ -91,7 +91,7 @@ render();
 // const templateEl = document.querySelector('.template');
 // const mesto = document.querySelector('.popup__text_type_mesto');
 // const link = document.querySelector('.popup__text_type_link');
-// const popupImg = document.getElementById('img');
+//const popupImg = document.getElementById('img');
 // const popupCloseImg = popupImg.querySelector('.popup__close');
 // const imageElBigSize = popupImg.querySelector('.popup__foto');
 // const titleElBigSize = popupImg.querySelector('.popup__fototext');
@@ -99,6 +99,7 @@ render();
 // const overlayProfile = document.getElementById('overlay__profile');
 // const overlayMesto = document.getElementById('overlay__mesto');
 // const overlayImg = document.getElementById('overlay__img');
+
 
 
 // function openPopup(evt) {
