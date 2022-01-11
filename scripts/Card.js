@@ -62,7 +62,6 @@ export default class Card {
         const popupImg = document.getElementById('img');
         popupImg.querySelector('.popup__close').addEventListener('click', this._closeBigSize);
 
-
         return this._element
     }
 

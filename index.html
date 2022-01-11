@@ -104,7 +104,7 @@
         <div class="popup__overlay" id="overlay__profile"></div>
         <div class="popup__content">
             <button class="popup__close" type="button"></button>
-            <form name="UpdateProfile" class="popup__form">
+            <form name="UpdateProfile" class="popup__form popup__profile">
                 <h2 class="popup__title">Редактировать профиль</h2>
                 <input id="name" type="text" class="popup__input popup__text popup__text_type_name" name="name" placeholder="Имя" required value="Жак-Ив Кусто" minlength="2" maxlength="40">
                 <span id="name-error" class="error"></span>
@@ -141,9 +141,9 @@
         </div>
     </div>
 
-    <script src="./scripts/validate.js"></script>
     <script type="module" src="./scripts/index.js"></script>
     <script type="module" src="./scripts/Card.js"></script>
+    <script type="module" src="./scripts/FormValidator.js"></script>
 </body>
 
 </html>
