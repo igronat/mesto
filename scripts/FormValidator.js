@@ -6,16 +6,17 @@ export default class FormValidator {
         this._inactiveButtonClass = selector.inactiveButtonClass;
         this._inputErrorClass = selector.inputErrorClass;
         this._errorClass = selector.errorClass;
+        this._inputList = this._form.querySelectorAll(this._inputSelector);
+        this._submitButton = this._form.querySelector(this._submitButtonSelector);
 
     }
 
     _setInputListeners() { //находим импуты
-        const inputs = this._form.querySelectorAll(this._inputSelector);
-        const submitButton = this._form.querySelector(this._submitButtonSelector);
-        inputs.forEach((input) => {
+        this._inputList.forEach((input) => {
             input.addEventListener('input', () => {
                 this._checkIfInputValid(input);
-                this._toggleButtonError(inputs, submitButton)
+                this._toggleButtonError(this._inputList, this._submitButton);
+
             })
         })
     };
@@ -46,7 +47,7 @@ export default class FormValidator {
     };
 
     _hasInvalidInput = () => { //  ищем невалидные импуты
-        const allinputs = Array.from(this._form.querySelectorAll('.popup__input'))
+        const allinputs = Array.from(this._inputList)
         return allinputs.some((el) => { return !el.validity.valid })
 
     };
@@ -61,6 +62,15 @@ export default class FormValidator {
             button.disabled = false;
 
         }
+    };
+
+    resetValidation() {
+        this._toggleButtonError(this._inputList, this._submitButton);
+
+        this._inputList.forEach((inputElement) => {
+            this._hideError(inputElement) //  очищаем ошибки
+        });
+
     }
 
     enableValidation = () => { // включаем валидацию

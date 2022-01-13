@@ -39,17 +39,21 @@ const nameInput = popupProfile.querySelector('.popup__text_type_name');
 const jobInput = popupProfile.querySelector('.popup__text_type_job');
 const mesto = document.querySelector('.popup__text_type_mesto');
 const link = document.querySelector('.popup__text_type_link');
-const popupClose = popupProfile.querySelector('.popup__close');
+const profileCloseButton = popupProfile.querySelector('.popup__close');
 const popupCloseMesto = popupMesto.querySelector('.popup__close');
 const buttonCreate = document.getElementById('button-create');
 const popupCloseImg = popupImg.querySelector('.popup__close');
 const overlayProfile = document.getElementById('overlay__profile');
 const overlayMesto = document.getElementById('overlay__mesto');
 const overlayImg = document.getElementById('overlay__img');
-const formElement = popupProfile.querySelector('.popup__form');
+const profileForm = popupProfile.querySelector('.popup__form');
 const formMesto = document.querySelector('.popup__mesto');
 const updateProfile = document.querySelector('.popup__profile');
 const updateMesto = document.querySelector('.popup__mesto');
+
+const imageElBigSize = popupImg.querySelector('.popup__foto');
+const titleElBigSize = popupImg.querySelector('.popup__fototext');
+const altElBigSize = popupImg.querySelector('[alt="фото"]');
 
 const enableValidation = ({
     formSelector: '.popup__form',
@@ -60,21 +64,42 @@ const enableValidation = ({
     errorClass: 'popup__error_visible'
 });
 
-const formProfile = new FormValidator(enableValidation, updateProfile);
-const formNewMesto = new FormValidator(enableValidation, updateMesto);
-formProfile.enableValidation();
-formNewMesto.enableValidation();
+const formProfileValidator = new FormValidator(enableValidation, updateProfile);
+const formNewMestoValidator = new FormValidator(enableValidation, updateMesto);
+formProfileValidator.enableValidation();
+formNewMestoValidator.enableValidation();
+
+function createCard(item) { // создаете карточку и возвращаете ее
+    const card = new Card('.template', item.name, item.link, item.alt);
+    const cardElement = card.getView();
+    return cardElement;
+
+};
+
+console.log(createCard(initialCards))
 
 function render() {
     const html = initialCards.map((item) => {
-        const card = new Card('.template', item.name, item.link, item.alt);
-
-        return card.getView()
+        createCard(item)
     });
 
     elements.append(...html);
 
 }
+
+
+// const titleEl = card.querySelector('.element__title');
+// const imageEl = card.querySelector('.element__image');
+// const altEl = card.querySelector('[alt="фото"]');
+// imageEl.addEventListener('click', () => { //открываем попап для увеличения картинки
+//     openPopup(popupImg);
+//     imageElBigSize.src = imageEl.src;
+//     titleElBigSize.textContent = titleEl.textContent;
+//     altElBigSize.alt = altEl.alt;
+
+// });
+
+
 
 render();
 
@@ -97,7 +122,7 @@ function closePopupByEscape(evt) { //функция закрытия попап�
     }
 }
 
-function handleFormSubmit(evt) { //функция внесения изменений в профиль
+function handleProfileFormSubmit(evt) { //функция внесения изменений в профиль
     evt.preventDefault();
     profileTitle.textContent = nameInput.value;
     profileText.textContent = jobInput.value;
@@ -115,24 +140,36 @@ function handleCardSubmit(evt) { //функция добавления карт�
     link.value = '';
     closePopup(popupMesto);
 
-}
+};
+
+
+// console.log(titleEl)
+
+// function openBigSizeImg() {
+//     openPopup(popupImg);
+//     imageElBigSize.src = imageEl.src;
+//     titleElBigSize.textContent = titleEl.textContent;
+//     altElBigSize.alt = altEl.alt;
+// }
+// imageEl.addEventListener('click', openBigSizeImg);
+
 
 editButton.addEventListener('click', () => {
     nameInput.value = profileTitle.textContent; // выводим в инпут данные из профиля
     jobInput.value = profileText.textContent;
     openPopup(popupProfile);
+    formProfileValidator.resetValidation();
 });
 addButton.addEventListener('click', () => {
     mesto.value = '';
     link.value = '';
-    buttonCreate.classList.add('popup__button_disabled');
-    buttonCreate.disabled = true;
     openPopup(popupMesto);
+    formNewMestoValidator.resetValidation();
 });
-popupClose.addEventListener('click', () => closePopup(popupProfile));
+profileCloseButton.addEventListener('click', () => closePopup(popupProfile));
 popupCloseMesto.addEventListener('click', () => closePopup(popupMesto));
 popupCloseImg.addEventListener('click', () => closePopup(popupImg));
-formElement.addEventListener('submit', handleFormSubmit);
+profileForm.addEventListener('submit', handleProfileFormSubmit);
 formMesto.addEventListener('submit', handleCardSubmit);
 overlayMesto.addEventListener('click', () => closePopup(popupMesto));
 overlayProfile.addEventListener('click', () => closePopup(popupProfile));
