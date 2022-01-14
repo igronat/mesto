@@ -28,6 +28,7 @@ const initialCards = [{
 }];
 
 const elements = document.querySelector('.elements');
+const templateEl = document.querySelector('.template');
 const profileTitle = document.querySelector('.profile__title');
 const profileText = document.querySelector('.profile__text');
 const popupProfile = document.getElementById('profile');
@@ -76,32 +77,36 @@ function createCard(item) { // создаете карточку и возвра
 
 };
 
-console.log(createCard(initialCards))
-
 function render() {
     const html = initialCards.map((item) => {
-        createCard(item)
+        return createCard(item)
     });
 
     elements.append(...html);
 
-}
-
-
-// const titleEl = card.querySelector('.element__title');
-// const imageEl = card.querySelector('.element__image');
-// const altEl = card.querySelector('[alt="фото"]');
-// imageEl.addEventListener('click', () => { //открываем попап для увеличения картинки
-//     openPopup(popupImg);
-//     imageElBigSize.src = imageEl.src;
-//     titleElBigSize.textContent = titleEl.textContent;
-//     altElBigSize.alt = altEl.alt;
-
-// });
-
-
+};
 
 render();
+
+function openBigImage() {
+    const newItem = templateEl.content.cloneNode(true); //копируем template
+    const titleEl = newItem.querySelector('.element__title');
+    const imageEl = newItem.querySelector('.element__image');
+    const altEl = newItem.querySelector('[alt="фото"]');
+    console.log(imageEl)
+        // openPopup(popupImg);
+        // imageElBigSize.src = imageEl.src;
+        // titleElBigSize.textContent = titleEl.textContent;
+        // altElBigSize.alt = altEl.alt;
+    imageEl.addEventListener('click', () => { //открываем попап для увеличения картинки
+        openPopup(popupImg);
+        imageElBigSize.src = imageEl.src;
+        titleElBigSize.textContent = titleEl.textContent;
+        altElBigSize.alt = altEl.alt;
+
+    });
+}
+openBigImage()
 
 function openPopup(evt) {
     evt.classList.add('popup_opened'); //функция открытия окна popup 
@@ -131,27 +136,17 @@ function handleProfileFormSubmit(evt) { //функция внесения изм
 
 function handleCardSubmit(evt) { //функция добавления карточки
     evt.preventDefault();
-    const inputMesto = mesto.value;
-    const inputImage = link.value;
-    const cardItem = new Card('.template', inputMesto, inputImage, evt.alt);
-    const card = cardItem.getView();
-    elements.prepend(card);
+    const card = {
+        name: mesto.value,
+        link: link.value
+    };
+    elements.prepend(createCard(card));
     mesto.value = '';
     link.value = '';
     closePopup(popupMesto);
 
 };
 
-
-// console.log(titleEl)
-
-// function openBigSizeImg() {
-//     openPopup(popupImg);
-//     imageElBigSize.src = imageEl.src;
-//     titleElBigSize.textContent = titleEl.textContent;
-//     altElBigSize.alt = altEl.alt;
-// }
-// imageEl.addEventListener('click', openBigSizeImg);
 
 
 editButton.addEventListener('click', () => {

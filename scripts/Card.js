@@ -59,7 +59,9 @@ export default class Card {
         this._heart.addEventListener('click', this._likeButton);
 
         // открываем попап для увеличения картинки
-        this._element.querySelector('.element__image').addEventListener('click', this._openBigSize);
+
+        // this._link.addEventListener('click', openBigImage());
+
 
         // закрываем попап для увеличения картинки
         const popupImg = document.getElementById('img');
