@@ -71,7 +71,7 @@ export default class FormValidator {
             this._hideError(inputElement) //  очищаем ошибки
         });
 
-    }
+    };
 
     enableValidation = () => { // включаем валидацию
         this._setInputListeners();

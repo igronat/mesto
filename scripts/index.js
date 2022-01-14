@@ -65,7 +65,7 @@ formProfileValidator.enableValidation();
 formNewMestoValidator.enableValidation();
 
 function createCard(item) { // создаете карточку и возвращаете ее
-    const card = new Card('.template', item.name, item.link, item.alt, cardClickHandler);
+    const card = new Card('.template', item.name, item.link, item.alt, handleCardClick);
     const cardElement = card.getView();
     return cardElement;
 
@@ -82,37 +82,36 @@ function render() {
 
 render();
 
-function cardClickHandler() {
+function handleCardClick() {
     openPopup(popupImg);
 
-}
-
+};
 
 function openPopup(evt) {
     evt.classList.add('popup_opened'); //функция открытия окна popup 
     document.addEventListener('keydown', closePopupByEscape);
 
-}
+};
 
 function closePopup(evt) {
     evt.classList.remove('popup_opened'); //функция закрытия окна popup
     document.removeEventListener('keydown', closePopupByEscape);
 
-}
+};
 
 function closePopupByEscape(evt) { //функция закрытия попапа через esc
     if (evt.key === 'Escape') {
         const openedPopup = document.querySelector('.popup_opened');
         closePopup(openedPopup)
     }
-}
+};
 
 function handleProfileFormSubmit(evt) { //функция внесения изменений в профиль
     evt.preventDefault();
     profileTitle.textContent = nameInput.value;
     profileText.textContent = jobInput.value;
     closePopup(popupProfile);
-}
+};
 
 function handleCardSubmit(evt) { //функция добавления карточки
     evt.preventDefault();
@@ -126,8 +125,6 @@ function handleCardSubmit(evt) { //функция добавления карт�
     closePopup(popupMesto);
 
 };
-
-
 
 editButton.addEventListener('click', () => {
     nameInput.value = profileTitle.textContent; // выводим в инпут данные из профиля

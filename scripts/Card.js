@@ -1,11 +1,10 @@
 export default class Card {
-    constructor(selector, name, link, alt, cardClickHandler) {
+    constructor(selector, name, link, alt, handleCardClick) {
         this._selector = selector;
         this._name = name;
         this._link = link;
         this._alt = alt;
-        this._cardClickHandler = cardClickHandler;
-
+        this._handleCardClick = handleCardClick;
 
     }
     _getItem() { // создаем карточку
@@ -25,7 +24,7 @@ export default class Card {
     }
 
     _openBigSize = () => { // открываем большую картинку
-        this._cardClickHandler();
+        this._handleCardClick();
         document.querySelector('.popup__foto').src = this._link;
         document.querySelector('.popup__fototext').textContent = this._name;
         document.querySelector('[alt="фото"]').textContent = this._alt;
@@ -44,6 +43,7 @@ export default class Card {
 
         return this._element
     }
+
     _setEventListeners() {
         //реализуем удаление картинки
         this._element.querySelector('.element__trash').addEventListener('click', this._deleteCardButton);
@@ -54,6 +54,5 @@ export default class Card {
         // открываем попап для увеличения картинки
         this._cardImage.addEventListener('click', this._openBigSize);
     }
-
 
 }
