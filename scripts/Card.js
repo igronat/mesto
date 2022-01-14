@@ -1,9 +1,11 @@
 export default class Card {
-    constructor(selector, name, link, alt) {
+    constructor(selector, name, link, alt, cardClickHandler) {
         this._selector = selector;
         this._name = name;
         this._link = link;
         this._alt = alt;
+        this._cardClickHandler = cardClickHandler;
+
 
     }
     _getItem() { // создаем карточку
@@ -22,36 +24,27 @@ export default class Card {
         this._heart.classList.toggle('element__heart_active')
     }
 
-    // _openBigSize = () => { // открываем большую картинку
-    //     const popupImg = document.getElementById('img');
-    //     popupImg.classList.add('popup_opened');
-    //     popupImg.querySelector('.popup__fototext').textContent = this._name; //вставляем данные названия
-    //     popupImg.querySelector('.popup__foto').src = this._link; //вставляем картинку
-    //     document.addEventListener('keydown', this._closePopupByEscape); // добавляем слушателя для esc
-    // }
+    _openBigSize = () => { // открываем большую картинку
+        this._cardClickHandler();
+        document.querySelector('.popup__foto').src = this._link;
+        document.querySelector('.popup__fototext').textContent = this._name;
+        document.querySelector('[alt="фото"]').textContent = this._alt;
 
-    _closeBigSize = () => { // закрываем большую картинку
-        const popupImg = document.getElementById('img');
-        popupImg.classList.remove('popup_opened');
-        document.removeEventListener('keydown', this._closePopupByEscape); // удаляем слушателя для esc
-
-    }
-
-    _closePopupByEscape = (evt) => { //функция закрытия попапа через esc
-        if (evt.key === 'Escape') {
-            const openedPopup = document.querySelector('.popup_opened');
-            this._closeBigSize();
-        }
     }
 
     getView() {
         this._element = this._getItem();
-        this._heart = this._element.querySelector('.element__heart')
+        this._heart = this._element.querySelector('.element__heart');
+        this._cardImage = this._element.querySelector('.element__image');
         this._element.querySelector('.element__title').textContent = this._name; //вставляем данные названия
-        this._element.querySelector('.element__image').src = this._link; //вставляем картинку
-        this._element.querySelector('[alt="фото"]').alt = this._alt; //вставляем описание картинки
+        this._cardImage.src = this._link; //вставляем картинку
+        this._cardImage.alt = this._alt; //вставляем описание картинки
 
+        this._setEventListeners();
 
+        return this._element
+    }
+    _setEventListeners() {
         //реализуем удаление картинки
         this._element.querySelector('.element__trash').addEventListener('click', this._deleteCardButton);
 
@@ -59,15 +52,7 @@ export default class Card {
         this._heart.addEventListener('click', this._likeButton);
 
         // открываем попап для увеличения картинки
-
-        // this._link.addEventListener('click', openBigImage());
-
-
-        // закрываем попап для увеличения картинки
-        const popupImg = document.getElementById('img');
-        popupImg.querySelector('.popup__close').addEventListener('click', this._closeBigSize);
-
-        return this._element
+        this._cardImage.addEventListener('click', this._openBigSize);
     }
 
 

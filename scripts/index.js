@@ -28,7 +28,6 @@ const initialCards = [{
 }];
 
 const elements = document.querySelector('.elements');
-const templateEl = document.querySelector('.template');
 const profileTitle = document.querySelector('.profile__title');
 const profileText = document.querySelector('.profile__text');
 const popupProfile = document.getElementById('profile');
@@ -42,7 +41,6 @@ const mesto = document.querySelector('.popup__text_type_mesto');
 const link = document.querySelector('.popup__text_type_link');
 const profileCloseButton = popupProfile.querySelector('.popup__close');
 const popupCloseMesto = popupMesto.querySelector('.popup__close');
-const buttonCreate = document.getElementById('button-create');
 const popupCloseImg = popupImg.querySelector('.popup__close');
 const overlayProfile = document.getElementById('overlay__profile');
 const overlayMesto = document.getElementById('overlay__mesto');
@@ -51,10 +49,6 @@ const profileForm = popupProfile.querySelector('.popup__form');
 const formMesto = document.querySelector('.popup__mesto');
 const updateProfile = document.querySelector('.popup__profile');
 const updateMesto = document.querySelector('.popup__mesto');
-
-const imageElBigSize = popupImg.querySelector('.popup__foto');
-const titleElBigSize = popupImg.querySelector('.popup__fototext');
-const altElBigSize = popupImg.querySelector('[alt="фото"]');
 
 const enableValidation = ({
     formSelector: '.popup__form',
@@ -71,7 +65,7 @@ formProfileValidator.enableValidation();
 formNewMestoValidator.enableValidation();
 
 function createCard(item) { // создаете карточку и возвращаете ее
-    const card = new Card('.template', item.name, item.link, item.alt);
+    const card = new Card('.template', item.name, item.link, item.alt, cardClickHandler);
     const cardElement = card.getView();
     return cardElement;
 
@@ -88,25 +82,11 @@ function render() {
 
 render();
 
-function openBigImage() {
-    const newItem = templateEl.content.cloneNode(true); //копируем template
-    const titleEl = newItem.querySelector('.element__title');
-    const imageEl = newItem.querySelector('.element__image');
-    const altEl = newItem.querySelector('[alt="фото"]');
-    console.log(imageEl)
-        // openPopup(popupImg);
-        // imageElBigSize.src = imageEl.src;
-        // titleElBigSize.textContent = titleEl.textContent;
-        // altElBigSize.alt = altEl.alt;
-    imageEl.addEventListener('click', () => { //открываем попап для увеличения картинки
-        openPopup(popupImg);
-        imageElBigSize.src = imageEl.src;
-        titleElBigSize.textContent = titleEl.textContent;
-        altElBigSize.alt = altEl.alt;
+function cardClickHandler() {
+    openPopup(popupImg);
 
-    });
 }
-openBigImage()
+
 
 function openPopup(evt) {
     evt.classList.add('popup_opened'); //функция открытия окна popup 
