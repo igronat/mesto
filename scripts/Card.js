@@ -23,14 +23,6 @@ export default class Card {
         this._heart.classList.toggle('element__heart_active')
     }
 
-    _openBigSize = () => { // открываем большую картинку
-        this._handleCardClick();
-        document.querySelector('.popup__foto').src = this._link;
-        document.querySelector('.popup__fototext').textContent = this._name;
-        document.querySelector('[alt="фото"]').textContent = this._alt;
-
-    }
-
     getView() {
         this._element = this._getItem();
         this._heart = this._element.querySelector('.element__heart');
@@ -42,7 +34,7 @@ export default class Card {
         this._setEventListeners();
 
         return this._element
-    }
+    };
 
     _setEventListeners() {
         //реализуем удаление картинки
@@ -52,7 +44,8 @@ export default class Card {
         this._heart.addEventListener('click', this._likeButton);
 
         // открываем попап для увеличения картинки
-        this._cardImage.addEventListener('click', this._openBigSize);
+        this._cardImage.addEventListener('click', () => {
+            this._handleCardClick(this._name, this._link)
+        });
     }
-
 }

@@ -82,8 +82,10 @@ function render() {
 
 render();
 
-function handleCardClick() {
+function handleCardClick(name, link) {
     openPopup(popupImg);
+    document.querySelector('.popup__foto').src = link;
+    document.querySelector('.popup__fototext').textContent = name;
 
 };
 
