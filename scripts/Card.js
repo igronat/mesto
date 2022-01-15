@@ -45,7 +45,7 @@ export default class Card {
 
         // открываем попап для увеличения картинки
         this._cardImage.addEventListener('click', () => {
-            this._handleCardClick(this._name, this._link)
+            this._handleCardClick(this._name, this._link, this._alt)
         });
     }
 }

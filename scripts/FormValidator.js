@@ -15,7 +15,7 @@ export default class FormValidator {
         this._inputList.forEach((input) => {
             input.addEventListener('input', () => {
                 this._checkIfInputValid(input);
-                this._toggleButtonError(this._inputList, this._submitButton);
+                this._toggleButtonError();
 
             })
         })
@@ -52,20 +52,20 @@ export default class FormValidator {
 
     };
 
-    _toggleButtonError = (inputs, button) => { // делаем кнопку неактивной в случае невалидности формы
-        if (this._hasInvalidInput(inputs)) {
-            button.classList.add(this._inactiveButtonClass);
-            button.disabled = true;
+    _toggleButtonError = () => { // делаем кнопку неактивной в случае невалидности формы
+        if (this._hasInvalidInput(this._inputList)) {
+            this._submitButton.classList.add(this._inactiveButtonClass);
+            this._submitButton.disabled = true;
 
         } else {
-            button.classList.remove(this._inactiveButtonClass);
-            button.disabled = false;
+            this._submitButton.classList.remove(this._inactiveButtonClass);
+            this._submitButton.disabled = false;
 
         }
     };
 
     resetValidation() {
-        this._toggleButtonError(this._inputList, this._submitButton);
+        this._toggleButtonError();
 
         this._inputList.forEach((inputElement) => {
             this._hideError(inputElement) //  очищаем ошибки
