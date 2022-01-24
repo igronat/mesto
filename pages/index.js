@@ -1,63 +1,76 @@
-import Card from './Card.js';
-import FormValidator from './FormValidator.js';
+import Card from '../components/Card.js';
+import FormValidator from '../components/FormValidator.js';
+import Section from '../components/Section.js';
+import Popup from '../components/Popup.js';
+import {
+    initialCards,
+    elements,
+    enableValidation,
+    updateProfile,
+    updateMesto,
+    nameInput,
+    jobInput,
+    mesto,
+    link
+} from '../utils/constants.js';
 
-const initialCards = [{
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
-    alt: 'Фото Архыза'
-}, {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
-    alt: 'Фото Челябинской области'
-}, {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
-    alt: 'Фото годода Иваново'
-}, {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
-    alt: 'Фото Камчатки'
-}, {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
-    alt: 'Фото Холмогорского района'
-}, {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
-    alt: 'Фото Байкала'
-}];
+// const initialCards = [{
+//     name: 'Архыз',
+//     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
+//     alt: 'Фото Архыза'
+// }, {
+//     name: 'Челябинская область',
+//     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
+//     alt: 'Фото Челябинской области'
+// }, {
+//     name: 'Иваново',
+//     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
+//     alt: 'Фото годода Иваново'
+// }, {
+//     name: 'Камчатка',
+//     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
+//     alt: 'Фото Камчатки'
+// }, {
+//     name: 'Холмогорский район',
+//     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
+//     alt: 'Фото Холмогорского района'
+// }, {
+//     name: 'Байкал',
+//     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
+//     alt: 'Фото Байкала'
+// }];
 
-const elements = document.querySelector('.elements');
+// const elements = document.querySelector('.elements');
 const profileTitle = document.querySelector('.profile__title');
 const profileText = document.querySelector('.profile__text');
 const popupProfile = document.getElementById('profile');
-const popupMesto = document.getElementById('mesto');
-const popupImg = document.getElementById('img');
+// const popupMesto = document.getElementById('mesto');
+// const popupImg = document.getElementById('img');
 const editButton = document.querySelector('.profile__edit-button ');
 const addButton = document.querySelector('.profile__add-button');
-const nameInput = popupProfile.querySelector('.popup__text_type_name');
-const jobInput = popupProfile.querySelector('.popup__text_type_job');
-const mesto = document.querySelector('.popup__text_type_mesto');
-const link = document.querySelector('.popup__text_type_link');
-const profileCloseButton = popupProfile.querySelector('.popup__close');
-const popupCloseMesto = popupMesto.querySelector('.popup__close');
-const popupCloseImg = popupImg.querySelector('.popup__close');
+// const nameInput = document.querySelector('.popup__text_type_name');
+// const jobInput = document.querySelector('.popup__text_type_job');
+// const mesto = document.querySelector('.popup__text_type_mesto');
+// const link = document.querySelector('.popup__text_type_link');
+// const profileCloseButton = popupProfile.querySelector('.popup__close');
+// const popupCloseMesto = popupMesto.querySelector('.popup__close');
+// const popupCloseImg = popupImg.querySelector('.popup__close');
 const overlayProfile = document.getElementById('overlay__profile');
 const overlayMesto = document.getElementById('overlay__mesto');
 const overlayImg = document.getElementById('overlay__img');
 const profileForm = popupProfile.querySelector('.popup__form');
 const formMesto = document.querySelector('.popup__mesto');
-const updateProfile = document.querySelector('.popup__profile');
-const updateMesto = document.querySelector('.popup__mesto');
+// const updateProfile = document.querySelector('.popup__profile');
+// const updateMesto = document.querySelector('.popup__mesto');
 
-const enableValidation = ({
-    formSelector: '.popup__form',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__button',
-    inactiveButtonClass: 'popup__button_disabled',
-    inputErrorClass: 'popup__input_type_error',
-    errorClass: 'popup__error_visible'
-});
+// const enableValidation = ({
+//     formSelector: '.popup__form',
+//     inputSelector: '.popup__input',
+//     submitButtonSelector: '.popup__button',
+//     inactiveButtonClass: 'popup__button_disabled',
+//     inputErrorClass: 'popup__input_type_error',
+//     errorClass: 'popup__error_visible'
+// });
 
 const formProfileValidator = new FormValidator(enableValidation, updateProfile);
 const formNewMestoValidator = new FormValidator(enableValidation, updateMesto);
@@ -71,48 +84,42 @@ function createCard(item) { // создаете карточку и возвра
 
 };
 
-function render() {
-    const html = initialCards.map((item) => {
-        return createCard(item)
-    });
+const cardList = new Section({
+        items: initialCards,
+        renderer: (item) => {
+            const html = createCard(item);
+            cardList.setItem(html);
+        }
+    },
+    elements);
 
-    elements.append(...html);
+cardList.renderItems();
 
-};
 
-render();
+// function openPopup(evt) {
+//     evt.classList.add('popup_opened'); //функция открытия окна popup 
+//     document.addEventListener('keydown', closePopupByEscape);
 
-function handleCardClick(name, link, alt) {
-    openPopup(popupImg);
-    document.querySelector('.popup__foto').src = link;
-    document.querySelector('.popup__fototext').textContent = name;
-    document.querySelector('.popup__foto').alt = alt;
-};
+// };
 
-function openPopup(evt) {
-    evt.classList.add('popup_opened'); //функция открытия окна popup 
-    document.addEventListener('keydown', closePopupByEscape);
+// function closePopup(evt) {
+//     evt.classList.remove('popup_opened'); //функция закрытия окна popup
+//     document.removeEventListener('keydown', closePopupByEscape);
 
-};
+// };
 
-function closePopup(evt) {
-    evt.classList.remove('popup_opened'); //функция закрытия окна popup
-    document.removeEventListener('keydown', closePopupByEscape);
-
-};
-
-function closePopupByEscape(evt) { //функция закрытия попапа через esc
-    if (evt.key === 'Escape') {
-        const openedPopup = document.querySelector('.popup_opened');
-        closePopup(openedPopup)
-    }
-};
+// function closePopupByEscape(evt) { //функция закрытия попапа через esc
+//     if (evt.key === 'Escape') {
+//         const openedPopup = document.querySelector('.popup_opened');
+//         closePopup(openedPopup)
+//     }
+// };
 
 function handleProfileFormSubmit(evt) { //функция внесения изменений в профиль
     evt.preventDefault();
     profileTitle.textContent = nameInput.value;
     profileText.textContent = jobInput.value;
-    closePopup(popupProfile);
+    popupNewProfile.closePopup();
 };
 
 function handleCardSubmit(evt) { //функция добавления карточки
@@ -124,30 +131,46 @@ function handleCardSubmit(evt) { //функция добавления карт�
     elements.prepend(createCard(card));
     mesto.value = '';
     link.value = '';
-    closePopup(popupMesto);
+    popupNewMesto.closePopup();
 
 };
 
+const popupNewProfile = new Popup('profile');
+const popupNewMesto = new Popup('mesto');
+const popupBigImg = new Popup('img');
+popupNewProfile.setEventListeners();
+popupNewMesto.setEventListeners();
+popupBigImg.setEventListeners();
+
 editButton.addEventListener('click', () => {
-    nameInput.value = profileTitle.textContent; // выводим в инпут данные из профиля
+    nameInput.value = profileTitle.textContent; //выводим в инпут данные из профиля
     jobInput.value = profileText.textContent;
-    openPopup(popupProfile);
+    popupNewProfile.open();
     formProfileValidator.resetValidation();
 });
+
 addButton.addEventListener('click', () => {
     mesto.value = '';
     link.value = '';
-    openPopup(popupMesto);
+    popupNewMesto.open();
     formNewMestoValidator.resetValidation();
 });
-profileCloseButton.addEventListener('click', () => closePopup(popupProfile));
-popupCloseMesto.addEventListener('click', () => closePopup(popupMesto));
-popupCloseImg.addEventListener('click', () => closePopup(popupImg));
+
+function handleCardClick(name, link, alt) {
+    popupBigImg.open();
+    document.querySelector('.popup__foto').src = link;
+    document.querySelector('.popup__fototext').textContent = name;
+    document.querySelector('.popup__foto').alt = alt;
+};
+
+// profileCloseButton.addEventListener('click', () => closePopup(popupProfile));
+// popupCloseMesto.addEventListener('click', () => closePopup(popupMesto));
+// popupCloseImg.addEventListener('click', () => closePopup(popupImg));
 profileForm.addEventListener('submit', handleProfileFormSubmit);
 formMesto.addEventListener('submit', handleCardSubmit);
-overlayMesto.addEventListener('click', () => closePopup(popupMesto));
-overlayProfile.addEventListener('click', () => closePopup(popupProfile));
-overlayImg.addEventListener('click', () => closePopup(popupImg));
+// overlayMesto.addEventListener('click', () => closePopup(popupMesto));
+// overlayProfile.addEventListener('click', () => closePopup(popupProfile));
+// overlayImg.addEventListener('click', () => closePopup(popupImg));
 
 
 // const editButton = document.querySelector('.profile__edit - button ');
