@@ -13,7 +13,7 @@ export default class Popup {
         document.removeEventListener('keydown', this._handleEscClose);
     }
 
-    _handleEscClose(evt) { //функция закрытия попапа через esc
+    _handleEscClose = (evt) => { //функция закрытия попапа через esc
         if (evt.key === 'Escape') {
             this.closePopup()
         }
