@@ -4,6 +4,7 @@ import Section from '../components/Section.js';
 import Popup from '../components/Popup.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js';
 import {
     initialCards,
     elements,
@@ -61,7 +62,7 @@ const overlayProfile = document.getElementById('overlay__profile');
 const overlayMesto = document.getElementById('overlay__mesto');
 const overlayImg = document.getElementById('overlay__img');
 const profileForm = popupProfile.querySelector('.popup__form');
-const formMesto = document.querySelector('.popup__mesto');
+// const formMesto = document.querySelector('.popup__mesto');
 // const updateProfile = document.querySelector('.popup__profile');
 // const updateMesto = document.querySelector('.popup__mesto');
 
@@ -100,13 +101,15 @@ const cardList = new Section({
 
 cardList.renderItems();
 
-// попап увеличения картинки
-const popupBigImg = new PopupWithImage('img');
-console.log(popupBigImg);
-popupBigImg.setEventListeners();
+
 
 function handleCardClick(name, link, alt) {
+    // попап увеличения картинки
+    const popupBigImg = new PopupWithImage('img', data);
+    console.log(popupBigImg);
+    popupBigImg.setEventListeners();
     popupBigImg.open();
+    item = { name, link, alt }
 
     // document.querySelector('.popup__foto').src = link;
     // document.querySelector('.popup__fototext').textContent = name;
@@ -114,30 +117,32 @@ function handleCardClick(name, link, alt) {
 };
 
 // попап внесения изменений в профиль
-function handleProfileFormSubmit(evt) {
-    evt.preventDefault();
-    profileTitle.textContent = nameInput.value;
-    profileText.textContent = jobInput.value;
-    popupNewProfile.closePopup();
-};
+// создаём экземпляр формы
+const form = new UserInfo({ name: '.profile__title', job: '.profile__text' });
+const formProfile = new PopupWithForm({
+    selector: 'profile',
+    handleCardSubmit: (formData) => {
+        form.setUserInfo(formData);
 
-const popupNewProfile = new Popup('profile');
+    }
+});
 
+formProfile.setEventListeners();
 
-popupNewProfile.setEventListeners();
+editButton.addEventListener('click', (formData) => {
+    //выводим в инпут данные из профиля
+    const inputs = form.getUserInfo(formData)
+    nameInput.value = inputs.nameInput;
+    jobInput.value = inputs.jobInput;
 
-
-
-editButton.addEventListener('click', () => {
-    nameInput.value = profileTitle.textContent; //выводим в инпут данные из профиля
-    jobInput.value = profileText.textContent;
-    popupNewProfile.open();
+    formProfile.open();
     formProfileValidator.resetValidation();
+
 });
 
 // попап добавления новой карточки
 // создаём экземпляр формы
-const form = new PopupWithForm({
+const formMesto = new PopupWithForm({
     selector: 'mesto',
     handleCardSubmit: () => {
         const card = {
@@ -149,10 +154,10 @@ const form = new PopupWithForm({
     }
 });
 
-form.setEventListeners();
+formMesto.setEventListeners();
 
 addButton.addEventListener('click', () => {
-    form.open();
+    formMesto.open();
     formNewMestoValidator.resetValidation();
 
 });
@@ -162,7 +167,7 @@ addButton.addEventListener('click', () => {
 // profileCloseButton.addEventListener('click', () => closePopup(popupProfile));
 // popupCloseMesto.addEventListener('click', () => closePopup(popupMesto));
 // popupCloseImg.addEventListener('click', () => closePopup(popupImg));
-profileForm.addEventListener('submit', handleProfileFormSubmit);
+// profileForm.addEventListener('submit', handleProfileFormSubmit);
 // formMesto.addEventListener('submit', handleCardSubmit);
 // overlayMesto.addEventListener('click', () => closePopup(popupMesto));
 // overlayProfile.addEventListener('click', () => closePopup(popupProfile));
