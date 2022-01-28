@@ -1,5 +1,5 @@
 export default class Card {
-    constructor(selector, name, link, alt, handleCardClick) {
+    constructor(selector, { name, link, alt }, handleCardClick) {
         this._selector = selector;
         this._name = name;
         this._link = link;
@@ -44,8 +44,6 @@ export default class Card {
         this._heart.addEventListener('click', this._likeButton);
 
         // открываем попап для увеличения картинки
-        this._cardImage.addEventListener('click', () => {
-            this._handleCardClick(this._name, this._link, this._alt)
-        });
+        this._cardImage.addEventListener('click', this._handleCardClick);
     }
 }
