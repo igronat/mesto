@@ -17,7 +17,7 @@ import {
     addButton,
     editButton
 } from '../utils/constants.js';
-
+import './index.css';
 
 // делаем валидацию
 const formProfileValidator = new FormValidator(enableValidation, updateProfile);
@@ -33,7 +33,7 @@ popupBigImg.setEventListeners();
 function createCard(item) {
     const handleCardClick = () => {
         popupBigImg.open(item);
-        console.log(popupBigImg)
+        
     }
     const card = new Card('.template', item, handleCardClick);
     const cardElement = card.getView();
