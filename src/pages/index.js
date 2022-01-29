@@ -18,6 +18,7 @@ import {
     editButton
 } from '../utils/constants.js';
 
+
 // делаем валидацию
 const formProfileValidator = new FormValidator(enableValidation, updateProfile);
 const formNewMestoValidator = new FormValidator(enableValidation, updateMesto);
