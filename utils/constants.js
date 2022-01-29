@@ -25,25 +25,12 @@ export const initialCards = [{
 }];
 
 export const elements = document.querySelector('.elements');
-const profileTitle = document.querySelector('.profile__title');
-const profileText = document.querySelector('.profile__text');
-const popupProfile = document.getElementById('profile');
-const popupMesto = document.getElementById('mesto');
-const popupImg = document.getElementById('img');
 export const editButton = document.querySelector('.profile__edit-button ');
 export const addButton = document.querySelector('.profile__add-button');
 export const nameInput = document.querySelector('.popup__text_type_name');
 export const jobInput = document.querySelector('.popup__text_type_job');
 export const mesto = document.querySelector('.popup__text_type_mesto');
 export const link = document.querySelector('.popup__text_type_link');
-const profileCloseButton = popupProfile.querySelector('.popup__close');
-const popupCloseMesto = popupMesto.querySelector('.popup__close');
-const popupCloseImg = popupImg.querySelector('.popup__close');
-const overlayProfile = document.getElementById('overlay__profile');
-const overlayMesto = document.getElementById('overlay__mesto');
-const overlayImg = document.getElementById('overlay__img');
-const profileForm = popupProfile.querySelector('.popup__form');
-const formMesto = document.querySelector('.popup__mesto');
 export const updateProfile = document.querySelector('.popup__profile');
 export const updateMesto = document.querySelector('.popup__mesto');
 
