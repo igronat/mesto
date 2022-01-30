@@ -4,7 +4,7 @@ export default class PopupWithForm extends Popup {
     constructor({ selector, handleCardSubmit }) {
         super(selector); //  вызываем конструктор родителя
         this._handleCardSubmit = handleCardSubmit;
-        this._formElement = this._selector.querySelector('.popup__form')
+        this._formElement = this._popup.querySelector('.popup__form')
 
     }
 
@@ -31,7 +31,6 @@ export default class PopupWithForm extends Popup {
         this._formElement.addEventListener('submit', (evt) => {
             evt.preventDefault();
             this._handleCardSubmit(this._getInputValues());
-            this.closePopup();
 
         })
 

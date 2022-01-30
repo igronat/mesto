@@ -34,42 +34,41 @@ function createCard(item) {
     const handleCardClick = () => {
         popupBigImg.open(item);
         
-    }
+    };
     const card = new Card('.template', item, handleCardClick);
     const cardElement = card.getView();
     return cardElement;
-
 
 };
 
 // создаем разметку для карточек и вставляем их
 const cardList = new Section({
-        items: initialCards,
         renderer: (item) => {
-            const html = createCard(item);
-            cardList.setItem(html);
+            const card = createCard(item);
+            cardList.setItem(card);
         }
     },
     elements);
 
-cardList.renderItems();
+cardList.renderItems(initialCards);
 
 // попап внесения изменений в профиль
 // создаём экземпляр формы
-const form = new UserInfo({ name: '.profile__title', job: '.profile__text' });
+const user = new UserInfo({ name: '.profile__title', job: '.profile__text' });
 const formProfile = new PopupWithForm({
     selector: 'profile',
     handleCardSubmit: (formData) => {
-        form.setUserInfo(formData);
+        user.setUserInfo(formData);
+        formProfile.closePopup()
 
     }
 });
 
 formProfile.setEventListeners();
 
-editButton.addEventListener('click', (formData) => {
+editButton.addEventListener('click', () => {
     //выводим в инпут данные из профиля
-    const inputs = form.getUserInfo(formData)
+    const inputs = user.getUserInfo()
     nameInput.value = inputs.nameInput;
     jobInput.value = inputs.jobInput;
 
@@ -82,12 +81,14 @@ editButton.addEventListener('click', (formData) => {
 // создаём экземпляр формы
 const formMesto = new PopupWithForm({
     selector: 'mesto',
-    handleCardSubmit: () => {
+    handleCardSubmit: (data) => {
         const card = {
-            name: mesto.value,
-            link: link.value
+            name: data.mesto,
+            link: data.link
         };
-        elements.prepend(createCard(card));
+        const newCard = createCard(card);
+        cardList.addItem(newCard);
+        formMesto.closePopup();
 
     }
 });

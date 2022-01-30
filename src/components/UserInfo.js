@@ -5,12 +5,10 @@ export default class UserInfo {
 
     }
 
-    getUserInfo(formData) {
-        formData.name = this._name.textContent;
-        formData.job = this._job.textContent;
+    getUserInfo() {
         const infoInput = {
-            nameInput: formData.name,
-            jobInput: formData.job
+            nameInput: this._name.textContent,
+            jobInput: this._job.textContent
         }
 
         return infoInput;
