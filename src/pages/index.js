@@ -12,8 +12,6 @@ import {
     updateMesto,
     nameInput,
     jobInput,
-    mesto,
-    link,
     addButton,
     editButton
 } from '../utils/constants.js';

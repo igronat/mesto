@@ -29,7 +29,7 @@ export default class Card {
         this._cardImage = this._element.querySelector('.element__image');
         this._element.querySelector('.element__title').textContent = this._name; //вставляем данные названия
         this._cardImage.src = this._link; //вставляем картинку
-        this._cardImage.alt = this._alt; //вставляем описание картинки
+        this._cardImage.alt = `Фото ${this._name}`; //вставляем описание картинки
 
         this._setEventListeners();
 

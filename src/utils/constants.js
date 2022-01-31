@@ -29,8 +29,6 @@ export const editButton = document.querySelector('.profile__edit-button ');
 export const addButton = document.querySelector('.profile__add-button');
 export const nameInput = document.querySelector('.popup__text_type_name');
 export const jobInput = document.querySelector('.popup__text_type_job');
-export const mesto = document.querySelector('.popup__text_type_mesto');
-export const link = document.querySelector('.popup__text_type_link');
 export const updateProfile = document.querySelector('.popup__profile');
 export const updateMesto = document.querySelector('.popup__mesto');
 
