@@ -4,8 +4,8 @@ import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
+import Api from '../components/Api.js';
 import {
-    initialCards,
     elements,
     enableValidation,
     updateProfile,
@@ -48,15 +48,36 @@ const cardList = new Section({
     },
     elements);
 
-cardList.renderItems(initialCards);
+// подключаем к серверу
+const api = new Api({
+  address: 'https://mesto.nomoreparties.co/v1/cohort-35',
+  token: '4720a964-d446-4c50-91af-e4bae21204bc'
+});
 
 // попап внесения изменений в профиль
 // создаём экземпляр формы
 const user = new UserInfo({ name: '.profile__title', job: '.profile__text' });
+
+api.getProfileInfo()
+.then(res => {
+    const profile = {
+        name: res.name,
+        job: res.about,
+        avatar: res.avatar,
+        id: res.id
+    }
+    user.setUserInfo(profile)
+})
+ .catch(err => console.log(`Ошибка при загрузке профиля: ${err}`))
+
 const formProfile = new PopupWithForm({
     selector: 'profile',
     handleCardSubmit: (formData) => {
-        user.setUserInfo(formData);
+        api.editProfile(formData)
+        .then(res => {
+         user.setUserInfo(formData);
+        })
+        .catch(err => console.log(`Ошибка при обновлении профиля: ${err}`))
         formProfile.closePopup()
 
     }
@@ -80,14 +101,12 @@ editButton.addEventListener('click', () => {
 const formMesto = new PopupWithForm({
     selector: 'mesto',
     handleCardSubmit: (data) => {
-        const card = {
-            name: data.mesto,
-            link: data.link
-        };
-        const newCard = createCard(card);
-        cardList.addItem(newCard);
+        api.addCard(data) 
+        .then(res => {
+            cardList.addItem(createCard({...data, id: res.id}))
+        })
+        .catch(err => console.log(`Ошибка при добавлении новой карточки: ${err}`))
         formMesto.closePopup();
-
     }
 });
 
@@ -98,3 +117,10 @@ addButton.addEventListener('click', () => {
     formNewMestoValidator.resetValidation();
 
 });
+
+// получаем карточки с сервера
+api.getInitialCards()
+ .then(cards => {
+cardList.renderItems(cards)
+})
+ .catch(err => console.log(err))

@@ -1,10 +1,12 @@
 export default class Card {
-    constructor(selector, { name, link, alt }, handleCardClick) {
+    constructor(selector, { name, link, alt, id }, handleCardClick) {
         this._selector = selector;
         this._name = name;
         this._link = link;
         this._alt = alt;
+        this._id = id;
         this._handleCardClick = handleCardClick;
+        console.log(id)
 
     }
     _getItem() { // создаем карточку

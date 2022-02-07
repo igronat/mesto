@@ -1,5 +1,5 @@
 export default class UserInfo {
-    constructor({ name, job }) {
+    constructor({ name, job}) {
         this._name = document.querySelector(name);
         this._job = document.querySelector(job);
 
@@ -12,7 +12,7 @@ export default class UserInfo {
         }
 
         return infoInput;
-
+        
     }
 
     setUserInfo(formData) {
