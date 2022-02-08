@@ -34,7 +34,8 @@ export default class Api {
            },
            body: JSON.stringify ({
                name: data.name,
-               about: data.job
+               about: data.job,
+               id: data._id
            })
   })
    .then(this._handleResponse); 
@@ -59,7 +60,8 @@ export default class Api {
            },
            body: JSON.stringify ({
                name: data.mesto,
-               link: data.link
+               link: data.link,
+               id: data.id
            })
        })
        .then(this._handleResponse);
@@ -75,4 +77,30 @@ export default class Api {
        })
        .then(this._handleResponse);
    }
+
+    postLikes(data) {
+       return fetch(`${this._address}/cards`, {
+           method: 'POST',
+           headers: {
+               authorization: this._token,
+               'Content-Type': 'application/json'
+           },
+           body: JSON.stringify ({
+               likes: data.likes,
+               
+           })
+       })
+       .then(this._handleResponse)
+       
+}
+
+   getLikes(id) {
+       return fetch(`${this._address}/cards/${id}/likes`, {
+           headers: {
+               authorization: this._token
+           }
+       })
+       .then(this._handleResponse)
+       
+}
 }

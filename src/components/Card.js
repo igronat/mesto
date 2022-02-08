@@ -1,12 +1,17 @@
 export default class Card {
-    constructor(selector, { name, link, alt, id }, handleCardClick) {
+    constructor(selector, { formData }, handleCardClick, handleCardDelete, userId) {
         this._selector = selector;
-        this._name = name;
-        this._link = link;
-        this._alt = alt;
-        this._id = id;
+        this._name = formData.name;
+        this._link = formData.link;
+        this._alt = formData.alt;
+        this._id = formData._id;
+        this._likes = formData.likes;
         this._handleCardClick = handleCardClick;
-        console.log(id)
+        this._handleCardDelete = handleCardDelete;
+        
+        this._cardOwnerId = formData.owner._id;
+        this._userId = userId;
+        console.log(this._likes)
 
     }
     _getItem() { // создаем карточку
@@ -17,12 +22,22 @@ export default class Card {
             .cloneNode(true);
     }
 
-    _deleteCardButton = () => { //удалям картинку
+    deleteCard = () => { //удалям картинку
         this._element.remove();
+
     }
 
     _likeButton = () => { // лайкаем картинку
-        this._heart.classList.toggle('element__heart_active')
+        this._heart.classList.toggle('element__heart_active');
+        
+    }
+
+    likesCount = () => {
+        return this._likes = document.querySelector('.element__like');
+    }
+
+    getId() {
+        return this._id
     }
 
     getView() {
@@ -32,15 +47,21 @@ export default class Card {
         this._element.querySelector('.element__title').textContent = this._name; //вставляем данные названия
         this._cardImage.src = this._link; //вставляем картинку
         this._cardImage.alt = `Фото ${this._name}`; //вставляем описание картинки
+        this._trash = this._element.querySelector('.element__trash')
 
         this._setEventListeners();
+
+        if (this._cardOwnerId !== this._userId) {
+            this._trash.classList.add('element__trash_hide')
+
+        }
 
         return this._element
     };
 
     _setEventListeners() {
         //реализуем удаление картинки
-        this._element.querySelector('.element__trash').addEventListener('click', this._deleteCardButton);
+        this._trash.addEventListener('click', this._handleCardDelete);
 
         //ставим лайк
         this._heart.addEventListener('click', this._likeButton);

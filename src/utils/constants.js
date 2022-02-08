@@ -14,3 +14,8 @@ export const enableValidation = ({
     inputErrorClass: 'popup__input_type_error',
     errorClass: 'popup__error_visible'
 });
+
+export const element = document.querySelector('.element__image')
+
+
+export let likeCount = document.querySelector('.element__like');
