@@ -15,7 +15,7 @@ export const enableValidation = ({
     errorClass: 'popup__error_visible'
 });
 
-export const element = document.querySelector('.element__image')
-
-
-export let likeCount = document.querySelector('.element__like');
+export const element = document.querySelector('.element__image');
+export const saveButtonMesto = document.querySelector('.button__mesto');
+export const saveButtonAvatar = document.querySelector('.button__avatar');
+export const saveButtonProfile = document.querySelector('.button__profile');
