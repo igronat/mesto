@@ -1,9 +1,8 @@
 export default class UserInfo {
-    constructor({ name, job, avatar}, handleAvatarEdit) {
+    constructor({ name, job, avatar}) {
         this._name = document.querySelector(name);
         this._job = document.querySelector(job); 
         this._avatar = document.querySelector(avatar); 
-        this._handleAvatarEdit = handleAvatarEdit;
 
     }
 
@@ -25,17 +24,8 @@ export default class UserInfo {
         
     }
 
-    setAvatarInfo(formData) {
-        this._avatar.src = formData.avatar;
-        
-    }
-
     getId() {
         return this._userId
-    }
-
-    setEventListeners() {
-        this._avatar.addEventListener('click', this._handleAvatarEdit)
     }
  
 }

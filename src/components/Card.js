@@ -13,7 +13,11 @@ export default class Card {
         this._cardOwnerId = formData.owner._id;
         this._userId = userId;
 
-        this._isLike = formData.likes.some(item => item._id == this._userID);
+        this._isLikesId = formData.likes
+        this._isLike = this._isLikesId.some((item) => {
+            return item._id === this._userId;
+
+            });
 
     }
     _getItem() { // создаем карточку
@@ -32,21 +36,19 @@ export default class Card {
     likeCard(formData) {
         this._countLikes.textContent = formData.likes.length;
         this._isLike = !this._isLike;
-        if (this._heart.classList.contains('element__heart_active')) {
-            this._heart.classList.remove('element__heart_active')
-        } else {
-            this._heart.classList.add('element__heart_active')
-        }
+        if (this._isLike) { 
+            this._heart.classList.add('element__heart_active') 
+
+        } else { 
+            this._heart.classList.remove('element__heart_active') 
+
+        } 
 
     }
 
     getIsLike() {
         return this._isLike
         
-    }
-
-    getId() {
-        return this._id
     }
 
     getView() {
@@ -58,17 +60,19 @@ export default class Card {
         this._cardImage.alt = `Фото ${this._name}`; //вставляем описание картинки
         this._trash = this._element.querySelector('.element__trash');
         this._countLikes = this._element.querySelector('.element__like');
-         if (this._heart.classList.contains('element__heart_active')) {
-            this._isLike
-        }
-        
+
         this._countLikes.textContent = this._likes;
 
         this._setEventListeners();
-        
+
+        // сверяем id чтобы появилвсь корзина удаления картинки
         if (this._cardOwnerId !== this._userId) {
             this._trash.classList.add('element__trash_hide')
-        }
+        };
+
+        // если this._isLike срабатывает, то закрашиваем лайк
+        if (this._isLike) { 
+            this._heart.classList.add('element__heart_active') }
 
         return this._element
 

@@ -1,7 +1,7 @@
 export default class Api {
-    constructor({address, token}) {
+    constructor({address, headers}) {
         this._address = address;
-        this._token = token
+        this._headers = headers
     }
 
     _handleResponse(res) {
@@ -16,9 +16,7 @@ export default class Api {
     // получаем информацию профиля
     getProfileInfo() {
         return fetch(`${this._address}/users/me`, {
-            headers: {
-            authorization: this._token
-            }
+            headers: this._headers
         })
         .then(this._handleResponse);
     
@@ -28,31 +26,25 @@ export default class Api {
     editProfile(data) {
      return fetch(`${this._address}/users/me`, {
         method: 'PATCH',
-        headers: {
-            authorization: this._token,
-            'Content-Type': 'application/json'
-            },
-            body: JSON.stringify ({
-               name: data.name,
-               about: data.job,
+        headers: this._headers,
+        body: JSON.stringify ({
+            name: data.name,
+            about: data.job,
                
             })
-        })
+     })
      .then(this._handleResponse); 
  
-  }
+    }
 
     // отправляем информацию об изменении аватара
     avatarProfile(data) {
      return fetch(`${this._address}/users/me/avatar`, {
         method: 'PATCH',
-        headers: {
-            authorization: this._token,
-            'Content-Type': 'application/json'
-           },
-           body: JSON.stringify ({
-               avatar: data.avatar
-           })
+        headers: this._headers,
+        body: JSON.stringify ({
+            avatar: data.avatar
+        })
      })
      .then(this._handleResponse); 
  
@@ -61,9 +53,7 @@ export default class Api {
     // получаем карточки
     getInitialCards() {
        return fetch(`${this._address}/cards`, {
-            headers: {
-            authorization: this._token
-            }
+            headers: this._headers
         })
         .then(this._handleResponse);
 
@@ -73,10 +63,7 @@ export default class Api {
     addCard(data) {
        return fetch(`${this._address}/cards`, {
            method: 'POST',
-           headers: {
-               authorization: this._token,
-               'Content-Type': 'application/json'
-           },
+           headers: this._headers,
            body: JSON.stringify ({
                name: data.mesto,
                link: data.link,
@@ -91,9 +78,7 @@ export default class Api {
     deleteCard(id) {
         return fetch(`${this._address}/cards/${id}`, {
            method: 'DELETE',
-           headers: {
-               authorization: this._token
-           }
+           headers: this._headers
         })
         .then(this._handleResponse);
 
@@ -103,9 +88,7 @@ export default class Api {
     putLikes(id) {
        return fetch(`${this._address}/cards/${id}/likes`, {
            method: 'PUT',
-           headers: {
-               authorization: this._token
-           }
+           headers: this._headers
        })
        .then(this._handleResponse)
        
@@ -115,9 +98,7 @@ export default class Api {
     deleteLikes(id) {
        return fetch(`${this._address}/cards/${id}/likes`, {
            method: 'DELETE',
-           headers: {
-               authorization: this._token
-           }
+           headers: this._headers
        })
        .then(this._handleResponse)
        

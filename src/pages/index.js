@@ -19,7 +19,8 @@ import {
     element,
     saveButtonMesto,
     saveButtonAvatar,
-    saveButtonProfile
+    saveButtonProfile,
+    avatar
 } from '../utils/constants.js';
 import './index.css';
 
@@ -43,15 +44,21 @@ popupDelete.setEventListeners();
 const popupAvatar = new PopupWithForm({
     selector: 'avatar',
     handleCardSubmit: (formData) => {
-        saveButtonAvatar.textContent = 'Сохранение...'
+        popupAvatar.renderLoading(true, saveButtonAvatar)
         api.avatarProfile(formData)
         .then(res => {
-            user.setAvatarInfo(formData);
+            const profile = {
+                name: res.name,
+                job: res.about,
+                avatar: res.avatar,
+                id: res._id
+            }
+            user.setUserInfo(profile);
             popupAvatar.closePopup()
         })
         .catch(err => console.log(`Ошибка удаления карточки: ${err}`))
         .finally(() => {
-            saveButtonAvatar.textContent = 'Сохранить'
+            popupAvatar.renderLoading(false, saveButtonAvatar)
         })
     }
 });
@@ -61,7 +68,7 @@ popupAvatar.setEventListeners();
 const formProfile = new PopupWithForm({
     selector: 'profile',
     handleCardSubmit: (formData) => {
-        saveButtonProfile.textContent = 'Сохранение...';
+        formProfile.renderLoading(true, saveButtonProfile)
         api.editProfile(formData)
         .then(res => {
             const profile = {
@@ -75,7 +82,7 @@ const formProfile = new PopupWithForm({
         })
         .catch(err => console.log(`Ошибка при обновлении профиля: ${err}`))
         .finally(() => {
-            saveButtonProfile.textContent = 'Сохранить'
+            formProfile.renderLoading(false, saveButtonProfile)
         })
         
     }
@@ -86,7 +93,7 @@ formProfile.setEventListeners();
 const formMesto = new PopupWithForm({
     selector: 'mesto',
     handleCardSubmit: (data) => {
-        saveButtonMesto.textContent = 'Сохранение...'
+        formMesto.renderLoading(true, saveButtonMesto)
         api.addCard(data) 
         .then(res => {
             cardList.addItem(createCard({...res, id: res._id}));
@@ -95,6 +102,7 @@ const formMesto = new PopupWithForm({
         .catch(err => console.log(`Ошибка при добавлении новой карточки: ${err}`))
         .finally(() => {
             saveButtonMesto.textContent = 'Создать'
+            
         }) 
     }
 });
@@ -162,42 +170,54 @@ const cardList = new Section({
     },
     elements);
 
-// открываем попап для изменения аватара
-function handleAvatarEdit() {
-    popupAvatar.open();
-        
-}
-
 // создаем юзера
-const user = new UserInfo({ name: '.profile__title', job: '.profile__text', avatar: '.profile__image' }, handleAvatarEdit);
-user.setEventListeners();
+const user = new UserInfo({ name: '.profile__title', job: '.profile__text', avatar: '.profile__image' });
 
 // подключаем к серверу
 const api = new Api({
   address: 'https://mesto.nomoreparties.co/v1/cohort-35',
-  token: '4720a964-d446-4c50-91af-e4bae21204bc'
+  headers: {
+      authorization: '4720a964-d446-4c50-91af-e4bae21204bc',
+      'Content-Type': 'application/json'
+  }
+  
 });
 
 // получаем с сервера данные юзера
-api.getProfileInfo()
-    .then(res => {
-        const profile = {
-            name: res.name,
-            job: res.about,
-            avatar: res.avatar,
-            id: res._id
-        }
-        user.setUserInfo(profile)
+const getInfoUser =
+    api.getProfileInfo()
+    .then(userData => {
+        return userData
     })
     .catch(err => console.log(`Ошибка при загрузке профиля: ${err}`));
 
+
+
 // получаем карточки с сервера
-api.getInitialCards()
+const getCards =
+    api.getInitialCards()
     .then(cards => {
-        cardList.renderItems(cards);
+        return cards
 
     })
-    .catch(err => console.log(err));
+    .catch(err => console.log(`Ошибка при загрузке карточек: ${err}`));
+
+
+// объединяем запрос данных профиля и получения карточек
+Promise.all([getInfoUser, getCards])
+  .then(([userData, cards]) => {
+    //   запрос данных профиля
+      user.setUserInfo({
+            name: userData.name,
+            job: userData.about,
+            avatar: userData.avatar,
+            id: userData._id
+        })
+       
+        // запрос данных профиля и получения карточек
+        cardList.renderItems(cards);
+  })
+  .catch(err => {console.log(`Ошибка получения данных с сервера: ${err}`)});
 
 // кнопка редактирования профиля
 editButton.addEventListener('click', () => {
@@ -215,6 +235,13 @@ addButton.addEventListener('click', () => {
     formMesto.open();
     formNewMestoValidator.resetValidation();
 
+});
+
+// открываем попап для изменения аватара
+avatar.addEventListener('click', () => {
+    popupAvatar.open();
+    formNewAvatarValidator.resetValidation();
+    
 });
 
 
