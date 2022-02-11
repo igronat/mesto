@@ -17,9 +17,6 @@ import {
     addButton,
     editButton,
     element,
-    saveButtonMesto,
-    saveButtonAvatar,
-    saveButtonProfile,
     avatar
 } from '../utils/constants.js';
 import './index.css';
@@ -44,7 +41,7 @@ popupDelete.setEventListeners();
 const popupAvatar = new PopupWithForm({
     selector: 'avatar',
     handleCardSubmit: (formData) => {
-        popupAvatar.renderLoading(true, saveButtonAvatar)
+        popupAvatar.renderLoading(true)
         api.avatarProfile(formData)
         .then(res => {
             const profile = {
@@ -58,7 +55,7 @@ const popupAvatar = new PopupWithForm({
         })
         .catch(err => console.log(`Ошибка удаления карточки: ${err}`))
         .finally(() => {
-            popupAvatar.renderLoading(false, saveButtonAvatar)
+            popupAvatar.renderLoading(false)
         })
     }
 });
@@ -68,7 +65,7 @@ popupAvatar.setEventListeners();
 const formProfile = new PopupWithForm({
     selector: 'profile',
     handleCardSubmit: (formData) => {
-        formProfile.renderLoading(true, saveButtonProfile)
+        formProfile.renderLoading(true)
         api.editProfile(formData)
         .then(res => {
             const profile = {
@@ -82,7 +79,7 @@ const formProfile = new PopupWithForm({
         })
         .catch(err => console.log(`Ошибка при обновлении профиля: ${err}`))
         .finally(() => {
-            formProfile.renderLoading(false, saveButtonProfile)
+            formProfile.renderLoading(false)
         })
         
     }
@@ -93,7 +90,7 @@ formProfile.setEventListeners();
 const formMesto = new PopupWithForm({
     selector: 'mesto',
     handleCardSubmit: (data) => {
-        formMesto.renderLoading(true, saveButtonMesto)
+        formMesto.renderLoading(true)
         api.addCard(data) 
         .then(res => {
             cardList.addItem(createCard({...res, id: res._id}));
@@ -101,7 +98,7 @@ const formMesto = new PopupWithForm({
         })
         .catch(err => console.log(`Ошибка при добавлении новой карточки: ${err}`))
         .finally(() => {
-            saveButtonMesto.textContent = 'Создать'
+            formMesto.renderLoading(false)
             
         }) 
     }

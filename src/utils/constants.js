@@ -17,6 +17,3 @@ export const enableValidation = ({
 });
 
 export const element = document.querySelector('.element__image');
-export const saveButtonMesto = document.querySelector('.popup__button_type_create');
-export const saveButtonAvatar = document.querySelector('.popup__button_type_saveAvatar');
-export const saveButtonProfile = document.querySelector('.popup__button_type_save');
